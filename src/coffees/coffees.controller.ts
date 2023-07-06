@@ -19,8 +19,9 @@ import { UpdateCoffeeDTO } from './dto/update-coffee.dto';
 export class CoffeesController {
   @Get()
   @HttpCode(HttpStatus.OK)
-  findAll() {
-    return `This action return all coffees!`;
+  findAll(@Query() paginationQuery) {
+    const { limit, offset } = paginationQuery;
+    return `This action return all coffees! ${JSON.stringify(paginationQuery)}`;
   }
 
   @Get(':id')
@@ -30,24 +31,20 @@ export class CoffeesController {
   }
 
   @Post()
-  @HttpCode(HttpStatus.GONE)
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createCoffeeDTO: CreateCoffeeDTO) {
-    console.log('createCoffeeDTO', createCoffeeDTO);
-    return `This action adds new coffee`;
+    return `This action adds new coffee ${createCoffeeDTO.name}`;
   }
 
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
-  update(@Param('id') id: string, @Body() updateCoffeeDTO: UpdateCoffeeDTO) {
-    console.log('updateCoffeeDTO', updateCoffeeDTO);
-    return `This action update a coffee has id = ${id}, data = ${JSON.stringify(
-      updateCoffeeDTO,
-    )}`;
+  update(@Body() updateCoffeeDTO: UpdateCoffeeDTO) {
+    return `This action update a coffee  ${JSON.stringify(updateCoffeeDTO)}`;
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
   delete(@Param('id') id: string) {
-    return `This action delete coffee has id = ${id}`;
+    return `This method will delete coffee has id = ${id}`;
   }
 }

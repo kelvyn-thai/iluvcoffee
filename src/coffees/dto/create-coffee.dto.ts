@@ -4,4 +4,5 @@ export class CreateCoffeeDTO {
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
+  brand: string;
 }
